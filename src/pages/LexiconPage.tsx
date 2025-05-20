@@ -65,7 +65,7 @@ const LexiconPage = () => {
       category: 'Reels',
       bestFor: 'General freshwater fishing',
       image: '/placeholder.svg',
-      description: 'Versatile reel that's easy to use and good for beginners.'
+      description: 'Versatile reel that is easy to use and good for beginners.'
     },
     {
       id: 3,
