@@ -1,16 +1,18 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Search, MapPin, Filter } from 'lucide-react';
+import { Search, MapPin, Filter, X, Star } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const MapPage = () => {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedSpot, setSelectedSpot] = useState<any>(null);
   
   const mockSpots = [
     {
@@ -21,7 +23,11 @@ const MapPage = () => {
       depth: '2-5m',
       quality: 'Good',
       fish: ['Trout', 'Pike', 'Perch'],
-      isFavorite: true
+      isFavorite: true,
+      reviews: [
+        { id: 1, user: 'Max F.', rating: 5, comment: 'Great spot for trout fishing!' },
+        { id: 2, user: 'Anna K.', rating: 4, comment: 'Good water quality, caught several pike.' }
+      ]
     },
     {
       id: 2,
@@ -31,7 +37,10 @@ const MapPage = () => {
       depth: '3-10m',
       quality: 'Excellent',
       fish: ['Carp', 'Bass', 'Catfish'],
-      isFavorite: false
+      isFavorite: false,
+      reviews: [
+        { id: 3, user: 'Tom B.', rating: 4, comment: 'Perfect for carp fishing. Very clean water.' }
+      ]
     },
     {
       id: 3,
@@ -41,7 +50,11 @@ const MapPage = () => {
       depth: '1-2m',
       quality: 'Excellent',
       fish: ['Brown Trout', 'Grayling'],
-      isFavorite: true
+      isFavorite: true,
+      reviews: [
+        { id: 4, user: 'Lisa M.', rating: 5, comment: 'Beautiful scenery and great fishing!' },
+        { id: 5, user: 'Peter S.', rating: 5, comment: 'Best trout spot in Bavaria!' }
+      ]
     }
   ];
 
@@ -70,39 +83,42 @@ const MapPage = () => {
       </div>
       
       <Tabs defaultValue="spots">
-        <TabsList className="grid grid-cols-3">
+        <TabsList className="grid grid-cols-2">
           <TabsTrigger value="spots">{t('fishingSpots')}</TabsTrigger>
           <TabsTrigger value="favorites">{t('favorites')}</TabsTrigger>
-          <TabsTrigger value="reviews">{t('reviews')}</TabsTrigger>
         </TabsList>
         
         <TabsContent value="spots" className="space-y-4 pt-4">
           {mockSpots.map(spot => (
-            <SpotCard key={spot.id} spot={spot} />
+            <SpotCard key={spot.id} spot={spot} onSelect={setSelectedSpot} />
           ))}
         </TabsContent>
         
         <TabsContent value="favorites" className="space-y-4 pt-4">
           {mockSpots.filter(s => s.isFavorite).map(spot => (
-            <SpotCard key={spot.id} spot={spot} />
+            <SpotCard key={spot.id} spot={spot} onSelect={setSelectedSpot} />
           ))}
         </TabsContent>
-        
-        <TabsContent value="reviews" className="pt-4">
-          <p className="text-center text-muted-foreground py-8">
-            {t('comingSoon')}
-          </p>
-        </TabsContent>
       </Tabs>
+
+      {/* Spot Detail Dialog */}
+      <Dialog open={!!selectedSpot} onOpenChange={() => setSelectedSpot(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>{selectedSpot?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedSpot && <SpotDetails spot={selectedSpot} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
 
-const SpotCard = ({ spot }: { spot: any }) => {
+const SpotCard = ({ spot, onSelect }: { spot: any; onSelect: (spot: any) => void }) => {
   const { t } = useLanguage();
   
   return (
-    <Card>
+    <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => onSelect(spot)}>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div>
@@ -110,12 +126,7 @@ const SpotCard = ({ spot }: { spot: any }) => {
             <CardDescription>{spot.location}</CardDescription>
           </div>
           <div className="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
-            <svg
-              className="h-4 w-4 text-yellow-500 fill-current"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-            </svg>
+            <Star className="h-4 w-4 text-yellow-500 fill-current" />
             <span className="text-sm font-medium">{spot.rating}</span>
           </div>
         </div>
@@ -143,6 +154,63 @@ const SpotCard = ({ spot }: { spot: any }) => {
         </div>
       </CardContent>
     </Card>
+  );
+};
+
+const SpotDetails = ({ spot }: { spot: any }) => {
+  const { t } = useLanguage();
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <div className="text-sm font-medium">{t('location')}</div>
+          <div className="text-sm">{spot.location}</div>
+        </div>
+        <div>
+          <div className="text-sm font-medium">{t('rating')}</div>
+          <div className="flex items-center gap-1">
+            <Star className="h-4 w-4 text-yellow-500 fill-current" />
+            <span className="text-sm">{spot.rating}</span>
+          </div>
+        </div>
+        <div>
+          <div className="text-sm font-medium">{t('depth')}</div>
+          <div className="text-sm">{spot.depth}</div>
+        </div>
+        <div>
+          <div className="text-sm font-medium">{t('quality')}</div>
+          <div className="text-sm">{spot.quality}</div>
+        </div>
+      </div>
+
+      <div>
+        <div className="text-sm font-medium mb-2">{t('fishSpecies')}</div>
+        <div className="flex flex-wrap gap-1">
+          {spot.fish.map((fish: string) => (
+            <Badge key={fish} variant="outline">{fish}</Badge>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div className="text-sm font-medium mb-2">{t('reviews')}</div>
+        <div className="space-y-2 max-h-32 overflow-y-auto">
+          {spot.reviews.map((review: any) => (
+            <div key={review.id} className="border rounded p-2">
+              <div className="flex justify-between items-start mb-1">
+                <span className="text-sm font-medium">{review.user}</span>
+                <div className="flex items-center gap-1">
+                  <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                  <span className="text-xs">{review.rating}</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">{review.comment}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 

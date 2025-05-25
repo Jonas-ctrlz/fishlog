@@ -1,12 +1,14 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Settings, User, PenTool as Pen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import JournalEntry from '@/components/JournalEntry';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const ProfilePage = () => {
   const { t } = useLanguage();
@@ -34,9 +36,24 @@ const ProfilePage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-        <Button variant="ghost" size="icon">
-          <Settings className="h-5 w-5" />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Settings className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>{t('settings')}</SheetTitle>
+            </SheetHeader>
+            <div className="space-y-6 mt-6">
+              <div>
+                <h3 className="text-lg font-medium mb-3">{t('language')}</h3>
+                <LanguageSelector />
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
       
       <div className="flex flex-col items-center gap-4">

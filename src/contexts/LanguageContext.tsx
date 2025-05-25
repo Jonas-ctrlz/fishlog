@@ -120,6 +120,42 @@ const translations: Translations = {
     en: 'Take Picture',
     de: 'Foto aufnehmen',
   },
+  entries: {
+    en: 'Entries',
+    de: 'Einträge',
+  },
+  comingSoon: {
+    en: 'Coming Soon',
+    de: 'Demnächst verfügbar',
+  },
+  placeholder: {
+    en: 'Coming Soon',
+    de: 'Demnächst verfügbar',
+  },
+  close: {
+    en: 'Close',
+    de: 'Schließen',
+  },
+  rating: {
+    en: 'Rating',
+    de: 'Bewertung',
+  },
+  location: {
+    en: 'Location',
+    de: 'Standort',
+  },
+  depth: {
+    en: 'Depth',
+    de: 'Tiefe',
+  },
+  quality: {
+    en: 'Quality',
+    de: 'Qualität',
+  },
+  language: {
+    en: 'Language',
+    de: 'Sprache',
+  },
 };
 
 type LanguageContextType = {
