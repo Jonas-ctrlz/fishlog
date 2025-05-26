@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Map, User, BookOpen, MessageCircle, BookOpen as Book } from 'lucide-react';
+import { Map, User, BookOpen as Book } from 'lucide-react';
 
 const Navigation = () => {
   const { t } = useLanguage();
@@ -10,8 +10,6 @@ const Navigation = () => {
   const navItems = [
     { name: 'map', path: '/map', icon: Map },
     { name: 'profile', path: '/profile', icon: User },
-    { name: 'feed', path: '/feed', icon: BookOpen },
-    { name: 'messages', path: '/messages', icon: MessageCircle },
     { name: 'lexicon', path: '/lexicon', icon: Book },
   ];
 

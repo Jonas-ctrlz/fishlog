@@ -8,8 +8,6 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import MapPage from '@/pages/MapPage';
 import ProfilePage from '@/pages/ProfilePage';
-import FeedPage from '@/pages/FeedPage';
-import MessagesPage from '@/pages/MessagesPage';
 import LexiconPage from '@/pages/LexiconPage';
 import NotFound from "./pages/NotFound";
 
@@ -27,8 +25,6 @@ const App = () => (
               <Route path="/" element={<MapPage />} />
               <Route path="/map" element={<MapPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/feed" element={<FeedPage />} />
-              <Route path="/messages" element={<MessagesPage />} />
               <Route path="/lexicon" element={<LexiconPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -9,19 +9,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import JournalEntry from '@/components/JournalEntry';
 import LanguageSelector from '@/components/LanguageSelector';
+import AddJournalEntry from '@/components/AddJournalEntry';
+import StatsTab from '@/components/StatsTab';
 
 const ProfilePage = () => {
   const { t } = useLanguage();
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
   
-  // Mock journal entries
-  const journalEntries = [
+  // Mock journal entries with state
+  const [journalEntries, setJournalEntries] = useState([
     {
       id: 1,
       date: '2023-06-12',
       location: 'Lake Victoria',
       fishCaught: ['Rainbow Trout', 'Pike'],
       image: '/placeholder.svg',
-      notes: 'Great day fishing! Caught 2 trouts and a pike.'
+      notes: 'Great day fishing! Caught 2 trouts and a pike.',
+      leadsAndBait: 'Spinner, Worms'
     },
     {
       id: 2,
@@ -29,9 +33,14 @@ const ProfilePage = () => {
       location: 'River Rhine',
       fishCaught: ['Carp', 'Perch'],
       image: '/placeholder.svg',
-      notes: 'Water was clear, weather was perfect. Caught several fish.'
+      notes: 'Water was clear, weather was perfect. Caught several fish.',
+      leadsAndBait: 'Bottom rig, Corn'
     }
-  ];
+  ]);
+
+  const handleAddEntry = (newEntry: any) => {
+    setJournalEntries([newEntry, ...journalEntries]);
+  };
 
   return (
     <div className="space-y-6">
@@ -69,16 +78,12 @@ const ProfilePage = () => {
         </div>
         <div className="flex gap-4">
           <div className="text-center">
-            <p className="font-bold">24</p>
-            <p className="text-sm text-muted-foreground">{t('friends')}</p>
-          </div>
-          <div className="text-center">
-            <p className="font-bold">18</p>
+            <p className="font-bold">{journalEntries.length}</p>
             <p className="text-sm text-muted-foreground">{t('journal')} {t('entries')}</p>
           </div>
           <div className="text-center">
-            <p className="font-bold">42</p>
-            <p className="text-sm text-muted-foreground">{t('favorites')}</p>
+            <p className="font-bold">{journalEntries.reduce((total, entry) => total + entry.fishCaught.length, 0)}</p>
+            <p className="text-sm text-muted-foreground">{t('fishCaught')}</p>
           </div>
         </div>
       </div>
@@ -86,13 +91,13 @@ const ProfilePage = () => {
       <Tabs defaultValue="journal">
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="journal">{t('journal')}</TabsTrigger>
-          <TabsTrigger value="friends">{t('friends')}</TabsTrigger>
+          <TabsTrigger value="stats">{t('stats')}</TabsTrigger>
         </TabsList>
         
         <TabsContent value="journal" className="space-y-4 pt-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-medium">{t('journal')} {t('entries')}</h3>
-            <Button size="sm">
+            <Button size="sm" onClick={() => setIsAddEntryOpen(true)}>
               <Pen className="h-4 w-4 mr-2" />
               {t('addEntry')}
             </Button>
@@ -103,20 +108,16 @@ const ProfilePage = () => {
           ))}
         </TabsContent>
         
-        <TabsContent value="friends" className="pt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('friends')}</CardTitle>
-              <CardDescription>Your fishing buddies</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-center text-muted-foreground py-8">
-                {t('comingSoon')}
-              </p>
-            </CardContent>
-          </Card>
+        <TabsContent value="stats" className="pt-4">
+          <StatsTab journalEntries={journalEntries} />
         </TabsContent>
       </Tabs>
+
+      <AddJournalEntry 
+        isOpen={isAddEntryOpen}
+        onClose={() => setIsAddEntryOpen(false)}
+        onSave={handleAddEntry}
+      />
     </div>
   );
 };

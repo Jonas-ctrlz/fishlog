@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'de';
@@ -155,6 +154,58 @@ const translations: Translations = {
   language: {
     en: 'Language',
     de: 'Sprache',
+  },
+  photo: {
+    en: 'Photo',
+    de: 'Foto',
+  },
+  dateTime: {
+    en: 'Date & Time',
+    de: 'Datum & Zeit',
+  },
+  fishingSpot: {
+    en: 'Fishing Spot',
+    de: 'Angelplatz',
+  },
+  leadsAndBait: {
+    en: 'Leads & Bait',
+    de: 'Blei & Köder',
+  },
+  notes: {
+    en: 'Notes',
+    de: 'Notizen',
+  },
+  save: {
+    en: 'Save',
+    de: 'Speichern',
+  },
+  cancel: {
+    en: 'Cancel',
+    de: 'Abbrechen',
+  },
+  stats: {
+    en: 'Stats',
+    de: 'Statistiken',
+  },
+  fishCaught: {
+    en: 'Fish Caught',
+    de: 'Gefangene Fische',
+  },
+  date: {
+    en: 'Date',
+    de: 'Datum',
+  },
+  uploadPhoto: {
+    en: 'Upload Photo',
+    de: 'Foto hochladen',
+  },
+  selectDate: {
+    en: 'Select Date',
+    de: 'Datum auswählen',
+  },
+  addJournalEntry: {
+    en: 'Add Journal Entry',
+    de: 'Journal-Eintrag hinzufügen',
   },
 };
 
