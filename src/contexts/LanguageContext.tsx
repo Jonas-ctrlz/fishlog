@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'de';
@@ -206,6 +207,38 @@ const translations: Translations = {
   addJournalEntry: {
     en: 'Add Journal Entry',
     de: 'Journal-Eintrag hinzufügen',
+  },
+  noEntriesYet: {
+    en: 'No entries yet',
+    de: 'Noch keine Einträge',
+  },
+  documents: {
+    en: 'Documents',
+    de: 'Dokumente',
+  },
+  fishingLicense: {
+    en: 'Fishing License',
+    de: 'Angelschein',
+  },
+  clubCertificate: {
+    en: 'Club Certificate',
+    de: 'Vereinszertifikat',
+  },
+  expiryDate: {
+    en: 'Expiry Date',
+    de: 'Ablaufdatum',
+  },
+  addDocument: {
+    en: 'Add Document',
+    de: 'Dokument hinzufügen',
+  },
+  filterByFish: {
+    en: 'Filter by Fish',
+    de: 'Nach Fisch filtern',
+  },
+  allFish: {
+    en: 'All Fish',
+    de: 'Alle Fische',
   },
 };
 

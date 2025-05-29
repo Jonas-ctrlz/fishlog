@@ -11,6 +11,7 @@ import JournalEntry from '@/components/JournalEntry';
 import LanguageSelector from '@/components/LanguageSelector';
 import AddJournalEntry from '@/components/AddJournalEntry';
 import StatsTab from '@/components/StatsTab';
+import DocumentsTab from '@/components/DocumentsTab';
 
 const ProfilePage = () => {
   const { t } = useLanguage();
@@ -89,9 +90,10 @@ const ProfilePage = () => {
       </div>
       
       <Tabs defaultValue="journal">
-        <TabsList className="grid grid-cols-2">
+        <TabsList className="grid grid-cols-3">
           <TabsTrigger value="journal">{t('journal')}</TabsTrigger>
           <TabsTrigger value="stats">{t('stats')}</TabsTrigger>
+          <TabsTrigger value="documents">{t('documents')}</TabsTrigger>
         </TabsList>
         
         <TabsContent value="journal" className="space-y-4 pt-4">
@@ -110,6 +112,10 @@ const ProfilePage = () => {
         
         <TabsContent value="stats" className="pt-4">
           <StatsTab journalEntries={journalEntries} />
+        </TabsContent>
+
+        <TabsContent value="documents" className="pt-4">
+          <DocumentsTab />
         </TabsContent>
       </Tabs>
 
