@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'de';
@@ -13,8 +12,8 @@ type Translations = {
 // Define all translations here
 const translations: Translations = {
   appName: {
-    en: 'Fischer Kompass',
-    de: 'Fischer Kompass',
+    en: 'FishLog',
+    de: 'FishLog',
   },
   map: {
     en: 'Map',

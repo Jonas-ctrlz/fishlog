@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Search, MapPin, Filter, X, Star } from 'lucide-react';
+import { Search, Filter, Star } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import HamburgMap from '@/components/HamburgMap';
 
 const MapPage = () => {
   const { t } = useLanguage();
@@ -75,12 +75,7 @@ const MapPage = () => {
         </Button>
       </div>
       
-      <div className="h-[300px] bg-fischer-lightGray rounded-lg flex items-center justify-center border">
-        <div className="text-center">
-          <MapPin className="h-12 w-12 text-fischer-blue mx-auto mb-2 animate-water-wave" />
-          <p>{t('map')} {t('placeholder')}</p>
-        </div>
-      </div>
+      <HamburgMap />
       
       <Tabs defaultValue="spots">
         <TabsList className="grid grid-cols-2">
