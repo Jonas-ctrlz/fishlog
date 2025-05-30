@@ -7,7 +7,8 @@ const HamburgMap = () => {
     { id: 1, x: 45, y: 30, name: 'Alster North' },
     { id: 2, x: 60, y: 65, name: 'Elbe Port' },
     { id: 3, x: 25, y: 45, name: 'Wandse Creek' },
-    { id: 4, x: 75, y: 40, name: 'Bille River' }
+    { id: 4, x: 75, y: 40, name: 'Bille River' },
+    { id: 5, x: 50, y: 62, name: 'Elbe River Hamburg' } // New Hamburg spot
   ];
 
   return (
@@ -61,7 +62,7 @@ const HamburgMap = () => {
         <rect x="15" y="58" width="20" height="8" fill="rgba(239, 68, 68, 0.3)" />
         
         {/* Blue zones - Open fishing */}
-        <rect x="50" y="58" width="25" height="8" fill="rgba(59, 130, 246, 0.3)" />
+        <rect x="45" y="58" width="30" height="8" fill="rgba(59, 130, 246, 0.3)" />
         <circle cx="75" cy="40" r="10" fill="rgba(59, 130, 246, 0.3)" />
         
         {/* Purple zones - Club membership required */}
